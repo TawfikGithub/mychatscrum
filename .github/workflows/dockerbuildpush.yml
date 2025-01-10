@@ -1,27 +1,17 @@
-name: Docker Build And Push To Docker Hub
-
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
-  build:
-    name: Build Chatscrum image
+  docker-build-tag-push:
     runs-on: ubuntu-latest
+    name: Docker Build, Tag & Publish
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Build Docker Image
-        id: buildAndPushImage
-        uses: MaximilianoBz/dockerhub-buildpush@v1.0
+      - name: Build, Tag & Publish Image to DockerHub
+        uses: dinushchathurya/build-tag-push-action@v1.2.1
         with:
-          registry_url: 'docker.io'
-          repository_name: 'mychatscrum'
-          user_name: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          image_version: 'v1.0'
-          docker_file: '.'
-      - name: Get pre step result output image_pull_url
-        run: echo "The time was ${{ steps.buildAndPushImage.outputs.image_pull_url }}"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          context: .
+          file: Dockerfile
+          repoOwner: ${{ secrets.DOCKER_USERNAME }}
+          repository:  mychatscrum
+          tag: 2.0.0
