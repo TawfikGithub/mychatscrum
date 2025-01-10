@@ -6,7 +6,7 @@ LABEL Vendor="CentOS" \
       License=GPLv2 \
       Version=2.4.6-40
 
-RUN yum -y install wget epel-release
+RUN yum -y install wget 
 RUN yum -y --setopt=tsflags=nodocs update && \
       yum -y --setopt=tsflags=nodocs install httpd && \
       yum clean all
