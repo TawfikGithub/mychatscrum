@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build Spring Boot
+    name: Build Chatscrum image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,7 +18,7 @@ jobs:
         uses: MaximilianoBz/dockerhub-buildpush@v1.0
         with:
           registry_url: 'docker.io'
-          repository_name: 'demo-app'
+          repository_name: 'mychatscrum'
           user_name: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
           image_version: 'v1.0'
